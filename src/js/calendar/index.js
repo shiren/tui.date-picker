@@ -39,16 +39,17 @@ var HEADER_SELECTOR = '.tui-calendar-header';
 var BODY_SELECTOR = '.tui-calendar-body';
 
 /**
- * Calendar class
- * @constructor
- * @param {HTMLElement|string} wrapperElement - Wrapper element or selector
- * @param {Object} [options] - Options for initialize
- *     @param {string} [options.language = 'en'] - Calendar language - {@link Calendar.localeTexts}
- *     @param {boolean} [options.showToday] - If true, shows today
- *     @param {boolean} [options.showJumpButtons] - If true, shows jump buttons (next,prev-year in 'date'-Calendar)
- *     @param {Date} [options.date = new Date()] - Initial date
- *     @param {string} [options.type = 'date'] - Calendar types - 'date', 'month', 'year'
- *     @param {Boolean} [options.usageStatistics=true|false] send hostname to google analytics (default value is true)
+ * @class
+ * @description
+ * Create a calendar by {@link DatePicker#createCalendar DatePicker.createCalendar()}. Refer to the [Calendar example](/tutorial-example07-calendar).
+ * @param {HTMLElement|string} container - Container or selector of the Calendar
+ * @param {Object} [options] - Calendar options
+ *     @param {Date} [options.date = new Date()] - Initial date (default: today)
+ *     @param {('date'|'month'|'year')} [options.type = 'date'] - Calendar type. Determine whether to show a date, month, or year.
+ *     @param {string} [options.language = 'en'] - Language code. English('en') and Korean('ko') are provided as default. To use the other languages, use {@link Date#localeTexts Date.localeTexts}.
+ *     @param {boolean} [options.showToday = true] - Show today.
+ *     @param {boolean} [options.showJumpButtons = false] - Show the yearly jump buttons (move to the previous and next year in 'date' Calendar)
+ *     @param {boolean} [options.usageStatistics = true] - Send a hostname to Google Analytics (default: true)
  * @example
  * var DatePicker = tui.DatePicker; // or require('tui-date-picker');
  * var calendar = DatePicker.createCalendar('#calendar-wrapper', {
@@ -73,36 +74,6 @@ var BODY_SELECTOR = '.tui-calendar-body';
 var Calendar = defineClass(
   /** @lends Calendar.prototype */ {
     static: {
-      /**
-       * Locale text data
-       * @type {object}
-       * @memberof Calendar
-       * @static
-       * @example
-       * var DatePicker = tui.DatePicker; // or require('tui-date-picker');
-       *
-       * DatePicker.localeTexts['customKey'] = {
-       *     titles: {
-       *         // days
-       *         DD: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-       *         // daysShort
-       *         D: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-       *         // months
-       *         MMMM: [
-       *             'January', 'February', 'March', 'April', 'May', 'June',
-       *             'July', 'August', 'September', 'October', 'November', 'December'
-       *         ],
-       *         // monthsShort
-       *         MMM: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-       *     },
-       *     titleFormat: 'MMM yyyy',
-       *     todayFormat: 'D, MMMM dd, yyyy'
-       * };
-       *
-       * var calendar = DatePicker.createCalendar('#calendar-wrapper', {
-       *     language: 'customKey',
-       * });
-       */
       localeTexts: localeTexts
     },
     init: function(container, options) {

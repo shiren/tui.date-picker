@@ -109,38 +109,42 @@ var mergeDefaultOption = function(option) {
 
 /**
  * @class
- * @param {HTMLElement|string} container - Container element or selector of datepicker
+ * @description
+ * Create a date picker.
+ * @param {HTMLElement|string} container - Container element or selector of DatePicker
  * @param {Object} [options] - Options
- *      @param {Date|number} [options.date] - Initial date. Default - null for no initial date
- *      @param {string} [options.type = 'date'] - DatePicker type - ('date' | 'month' | 'year')
- *      @param {string} [options.language='en'] - Language key
- *      @param {object|boolean} [options.timePicker] - [TimePicker](https://nhn.github.io/tui.time-picker/latest) options. This option's name is changed from 'timepicker' and 'timepicker' will be deprecated in v5.0.0.
- *      @param {object} [options.calendar] - {@link Calendar} options
+ *      @param {Date|number} [options.date = null] - Initial date. Set by a Date instance or a number(timestamp). (default: no initial date)
+ *      @param {('date'|'month'|'year')} [options.type = 'date'] - DatePicker type. Determine whether to choose a date, month, or year.
+ *      @param {string} [options.language='en'] - Language code. English('en') and Korean('ko') are provided as default. To use the other languages, use {@link DatePicker#localeTexts DatePicker.localeTexts}.
+ *      @param {object|boolean} [options.timePicker] - [TimePicker](https://nhn.github.io/tui.time-picker/latest) options. Refer to the [TimePicker instance's options](https://nhn.github.io/tui.time-picker/latest/TimePicker). To create the TimePicker without customization, set to true.
+ *      @param {object} [options.calendar] - {@link Calendar} options. Refer to the {@link Calendar Calendar instance's options}.
  *      @param {object} [options.input] - Input option
  *      @param {HTMLElement|string} [options.input.element] - Input element or selector
- *      @param {string} [options.input.format = 'yyyy-mm-dd'] - Date string format
+ *      @param {string} [options.input.format = 'yyyy-mm-dd'] - Format of the Date string
  *      @param {Array.<Array.<Date|number>>} [options.selectableRanges = 1900/1/1 ~ 2999/12/31]
- *                                                                      - Selectable date ranges.
- *      @param {Array} [options.openers = []] - Opener button list (example - icon, button, etc.)
- *      @param {boolean} [options.showAlways = false] - Whether the datepicker shows always
- *      @param {boolean} [options.autoClose = true] - Close after click a date
- *      @param {Boolean} [options.usageStatistics=true|false] send hostname to google analytics (default value is true)
+ *        - Ranges of selectable date. Set by Date instances or number(timestamp).
+ *      @param {Array<HTMLElement|string>} [options.openers = []] - List of the openers to open the DatePicker (example - icon, button, etc.)
+ *      @param {boolean} [options.showAlways = false] - Show the DatePicker always
+ *      @param {boolean} [options.autoClose = true] - Close the DatePicker after clicking the date
+ *      @param {boolean} [options.usageStatistics = true] - Send a hostname to Google Analytics (default: true)
  * @example
- * var DatePicker = tui.DatePicker; // or require('tui-date-picker');
+ * import DatePicker from 'tui-date-picker' // ES6
+ * // const DatePicker = require('tui-date-picker'); // CommonJS
+ * // const DatePicker = tui.DatePicker;
+ * 
+ * const range1 = [new Date(2015, 2, 1), new Date(2015, 3, 1)];
+ * const range2 = [1465570800000, 1481266182155]; // timestamps
  *
- * var range1 = [new Date(2015, 2, 1), new Date(2015, 3, 1)];
- * var range2 = [1465570800000, 1481266182155]; // timestamps
- *
- * var picker1 = new DatePicker('#datepicker-container1', {
+ * const picker1 = new DatePicker('#datepicker-container1', {
  *     showAlways: true
  * });
  *
- * var picker2 = new DatePicker('#datepicker-container2', {
+ * const picker2 = new DatePicker('#datepicker-container2', {
  *    showAlways: true,
  *    timePicker: true
  * });
  *
- * var picker3 = new DatePicker('#datepicker-container3', {
+ * const picker3 = new DatePicker('#datepicker-container3', {
  *     // There are two supporting types by default - 'en' and 'ko'.
  *     // See "{@link DatePicker.localeTexts}"
  *     language: 'ko',
@@ -157,7 +161,7 @@ var mergeDefaultOption = function(option) {
  *         format: 'yyyy년 MM월 dd일 hh:mm A'
  *     }
  *     type: 'date',
- *     date: new Date(2015, 0, 1) // or timestamp. (default: null-(no initial date))
+ *     date: new Date(2015, 0, 1)
  *     selectableRanges: [range1, range2],
  *     openers: ['#opener']
  * });
@@ -166,13 +170,11 @@ var DatePicker = defineClass(
   /** @lends DatePicker.prototype */ {
     static: {
       /**
-       * Locale text data
+       * Locale text data. English('en') and Korean('ko') are provided as default.
        * @type {object}
        * @memberof DatePicker
        * @static
        * @example
-       * var DatePicker = tui.DatePicker; // or require('tui-date-picker');
-       *
        * DatePicker.localeTexts['customKey'] = {
        *     titles: {
        *         // days
@@ -193,7 +195,7 @@ var DatePicker = defineClass(
        *     time: 'Time'
        * };
        *
-       * var datepicker = new tui.DatePicker('#datepicker-container', {
+       * const datepicker = new DatePicker('#datepicker-container', {
        *     language: 'customKey'
        * });
        */
@@ -282,8 +284,8 @@ var DatePicker = defineClass(
 
       /**
        * ID of instance
-       * @private
        * @type {number}
+       * @private
        */
       this._id = 'tui-datepicker-' + util.generateId();
 

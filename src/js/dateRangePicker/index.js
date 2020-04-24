@@ -24,25 +24,26 @@ var CLASS_NAME_SELECTED_RANGE = 'tui-is-selected-range';
 
 /**
  * @class
- * @param {object} options - Date-Range picker options
+ * @description
+ * Create a date-range picker by {@link DatePicker#createRangePicker DatePicker.createRangePicker()}. Refer to the [DateRangePicker example](/tutorial-example08-daterangepicker).
+ * @param {object} options - DateRangePicker options
  *     @param {object} options.startpicker - Startpicker options
  *     @param {HTMLElement|string} options.startpicker.input - Startpicker input element or selector
  *     @param {HTMLElement|string} options.startpicker.container - Startpicker container element or selector
  *     @param {object} options.endpicker - Endpicker options
  *     @param {HTMLElement|string} options.endpicker.input - Endpicker input element or selector
  *     @param {HTMLElement|string} options.endpicker.container - Endpicker container element or selector
- *     @param {string} options.format - Input date-string format
- *     @param {string} [options.type = 'date'] - DatePicker type - ('date' | 'month' | 'year')
- *     @param {string} [options.language='en'] - Language key
- *     @param {object|boolean} [options.timePicker] - [TimePicker](https://nhn.github.io/tui.time-picker/latest) options. This option's name is changed from 'timepicker' and 'timepicker' will be deprecated in v5.0.0.
- *     @param {object} [options.calendar] - {@link Calendar} options
- *     @param {Array.<Array.<Date|number>>} [options.selectableRanges] - Selectable ranges
- *     @param {boolean} [options.showAlways = false] - Whether the datepicker shows always
- *     @param {boolean} [options.autoClose = true] - Close after click a date
- *     @param {Boolean} [options.usageStatistics=true|false] send hostname to google analytics [default value is true]
+ *     @param {('date'|'month'|'year')} [options.type = 'date'] - DatePicker type. Determine whether to choose a date, month, or year.
+ *     @param {string} [options.language='en'] - Language code. English('en') and Korean('ko') are provided as default. To use the other languages, use {@link DatePicker#localeTexts DatePicker.localeTexts}.
+ *     @param {object|boolean} [options.timePicker] - [TimePicker](https://nhn.github.io/tui.time-picker/latest) options. Refer to the [TimePicker instance's options](https://nhn.github.io/tui.time-picker/latest/TimePicker). To create the TimePicker without customization, set to true.
+ *     @param {object} [options.calendar] - {@link Calendar} options. Refer to the {@link Calendar Calendar instance's options}.
+ *     @param {string} [options.format = 'yyyy-mm-dd'] - Format of the Date string
+ *     @param {Array.<Array.<Date|number>>} [options.selectableRanges] - Ranges of selectable date. Set by Date instances or number(timestamp).
+ *     @param {boolean} [options.showAlways = false] - Show the DateRangePicker always
+ *     @param {boolean} [options.autoClose = true] - Close the DateRangePicker after clicking the date
+ *     @param {boolean} [options.usageStatistics = true] - Send a hostname to Google Analytics (default: true)
  * @example
- * var DatePicker = tui.DatePicker; // or require('tui-date-picker');
- * var rangepicker = DatePicker.createRangePicker({
+ * const rangepicker = DatePicker.createRangePicker({
  *     startpicker: {
  *         input: '#start-input',
  *         container: '#start-container'
